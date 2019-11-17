@@ -284,11 +284,16 @@ class controlEnv():
         ep41 = k23*x[19]*x[10] -kr23*x[40] -ri_allbut_5*x[40]
         
         
-        return [ep1, ep2, ep3, ep4, ep5, ep6, ep7, ep8, ep9, ep10, 
+        S = np.array([ep1, ep2, ep3, ep4, ep5, ep6, ep7, ep8, ep9, ep10, 
                 ep11, ep12, ep13, ep14, ep15, ep16, ep17, ep18, ep19, ep20, 
                 ep21, ep22, ep23, ep24, ep25, ep26, ep27, ep28, ep29, ep30, 
                 ep31, ep32, ep33, ep34, ep35, ep36, ep37, ep38, ep39, ep40, 
-                ep41]
+                ep41])
+        index = np.where(S >0)[0]
+        S[index] = 0
+    
+        return S
+    
     #alloed actions, buy, sell 	
     def step(self, action):
         # action will be a vector of length 41
