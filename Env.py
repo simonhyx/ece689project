@@ -289,7 +289,7 @@ class controlEnv():
                 ep21, ep22, ep23, ep24, ep25, ep26, ep27, ep28, ep29, ep30, 
                 ep31, ep32, ep33, ep34, ep35, ep36, ep37, ep38, ep39, ep40, 
                 ep41])
-        index = np.where(S >0)[0]
+        index = np.where(S <0)[0]
         S[index] = 0
     
         return S
