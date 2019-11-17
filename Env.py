@@ -308,6 +308,12 @@ class controlEnv():
         
         observation = self.currentData
         print(observation)
+        if np.linalg.norm(observation, ord=1) == 0:
+            return observation, -10, True, {'hello':0}
+        
+        index = np.where(self.targetState.reshape(self.currentData.shape[1]) > 0 )[0]
+        if np.all(self.currentData.reshape(self.currentData.shape[1])[index] > self.targetState.reshape(self.currentData.shape[1])[index]):
+            return observation, 10, True, {'hello':0}
 
         return observation, reward, False, {'hello':0}
     
@@ -322,7 +328,7 @@ class controlEnv():
         print(mean_squared_error(v1,v2))
         print(np.linalg.norm(v2, ord=1))
 
-        reward = -1* mean_squared_error(v1, v2) / np.linalg.norm(v2, ord=1)
+        reward = -1* np.sqrt(mean_squared_error(v1, v2)) / np.linalg.norm(v2, ord=1)
         
         return np.clip(reward, -1, 1)
         
