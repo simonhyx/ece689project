@@ -1,9 +1,9 @@
 from __future__ import division
 import argparse
 
-from PIL import Image
+#from PIL import Image
 import numpy as np
-import gym
+#import gym
 
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten, Convolution2D, Permute
@@ -38,7 +38,7 @@ from rl.agents import DQNAgent
 import copy
 
 from Env import controlEnv
-
+from dataGeneratorEdge_redo_v2 import dataGenerator
 
 '''
 path = './simulatedData/*.npy'
@@ -150,7 +150,7 @@ def actor_net(in_shape, n_classes = 2):
 #	net = LSTM(8,  return_sequences = True)(net)
     net = Dense(16, activation = 'relu')(net)
     
-    out = Dense(n_classes, activation = 'sigmoid')(net)
+    out = Dense(n_classes, activation = 'tanh')(net)
 #
     model = Model(inputs=img,outputs=out)
     return model
@@ -231,7 +231,7 @@ agent.compile(Adam(lr=.001, clipnorm=1.), metrics=['mse'])
 # Okay, now it's time to learn something! We visualize the training here for show, but this
 # slows down training quite a lot. You can always safely abort the training prematurely using
 # Ctrl + C.
-agent.fit(env, nb_steps=900000, visualize=True, verbose=1, nb_max_episode_steps=2000)
+agent.fit(env, nb_steps=900000, visualize=True, verbose=1, nb_max_episode_steps=10)
 
 #agent.save('RLAgentjun02.h5')
 # After training is done, we save the final weights.

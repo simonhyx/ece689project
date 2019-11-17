@@ -294,7 +294,7 @@ class controlEnv():
         # action will be a vector of length 41
 
         #action = action.reshape(3, self.stocks_per_epi)
-        self.currentData = self.currentData * action
+        self.currentData = self.currentData *( action+1)
         t = np.linspace(0, 24*3600, 100*24*3600)
         sol = odeint(self.diffEqv2, self.currentData.reshape(self.currentData.shape[1],), t)
         self.currentData = sol[-1,:].reshape(1,self.currentData.shape[1])
@@ -302,7 +302,7 @@ class controlEnv():
         reward = self.getReward(self.currentData.reshape(self.currentData.shape[1]), self.targetState.reshape(self.currentData.shape[1]))
         
         observation = self.currentData
-        
+        print(observation)
 
         return observation, reward, False, {'hello':0}
     
@@ -313,8 +313,11 @@ class controlEnv():
         v1 = currentState[index]
         v2 = targetState[index]
         
-        
-        reward = -1* mean_squared_error(v1, v2)
+        print(v1,v2)
+        print(mean_squared_error(v1,v2))
+        print(np.linalg.norm(v2, ord=1))
+
+        reward = -1* mean_squared_error(v1, v2) / np.linalg.norm(v2, ord=1)
         
         return np.clip(reward, -1, 1)
         
