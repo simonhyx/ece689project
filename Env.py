@@ -297,6 +297,8 @@ class controlEnv():
     #alloed actions, buy, sell 	
     def step(self, action):
         # action will be a vector of length 41
+        
+        print(action)
 
         #action = action.reshape(3, self.stocks_per_epi)
         self.currentData = self.currentData *( action+1)
