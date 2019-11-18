@@ -69,9 +69,11 @@ class controlEnv():
         action_obs = np.zeros(observation.shape[1])
         #action_obs[np.array(self.action_list)] = 1
         action_obs = action_obs.reshape(1,observation.shape[1])
+        
+        observation = np.concatenate((observation, action_obs), axis=1)
 
 
-        return self.currentData/np.linalg.norm(self.currentData, ord=1)
+        return observation
 
 
     def diffEqv2(self, x , t, nodeIndex=None, nodeVal = 0):
