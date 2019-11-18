@@ -310,6 +310,8 @@ class controlEnv():
     def getObsAndReward(self, action):
         self.action_list.append(action)
         
+        print(self.action_list)
+        
         t = np.linspace(0, 24*3600, 100*24*3600)
         sol = odeint(self.diffEqv2, self.currentData.reshape(self.currentData.shape[1],), t, (np.array(self.action_list),0))
         self.currentData = sol[-1,:].reshape(1,self.currentData.shape[1])
