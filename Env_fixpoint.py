@@ -35,6 +35,8 @@ class controlEnv():
         self.targetState = target_state
         
         self.action_list = [] 
+        
+        self.obs_space = len(df.columns)*2
 
 		
     def getData(self):
@@ -299,21 +301,7 @@ class controlEnv():
     
         return S
     
-    #alloed actions, buy, sell 	
-    def step(self, action):
-        # action will be a vector of length 41
-        
-        action = np.argmax(action)
-        print()
-        
-        print(action)
-        print(action)
-        print(action)
-
-        #action = action.reshape(3, self.stocks_per_epi)
-        #self.currentData = self.currentData *( action+1)
-        
-        #self.currentData[0,action] = 0
+    def getObsAndReward(self, action):
         self.action_list.append(action)
         
         t = np.linspace(0, 24*3600, 100*24*3600)
@@ -324,14 +312,43 @@ class controlEnv():
         
         observation = self.currentData
         print(observation)
+        
+        action_obs = np.zeros(observation.shape[1])
+        action_obs[np.array(self.action_list)] = 1
+        action_obs = action_obs.reshape(1,observation.shape[1])
+        
+        return observation, action_obs, reward
+    
+    #alloed actions, buy, sell 	
+    def step(self, action):
+        # action will be a vector of length 41
+        
+        action = np.argmax(action)
+        print()
+        
+        print(action)
+        print(action)
+        print(action)
+        
+        
+        observation, action_obs, reward = self.getObsAndReward(action)
+        print(observation)
+        #action = action.reshape(3, self.stocks_per_epi)
+        #self.currentData = self.currentData *( action+1)
+        
+        #self.currentData[0,action] = 0
+
         if np.linalg.norm(observation, ord=1) == 0:
             return observation, -10, True, {'hello':0}
         
         index = np.where(self.targetState.reshape(self.currentData.shape[1]) > 0 )[0]
         if np.all(self.currentData.reshape(self.currentData.shape[1])[index] > self.targetState.reshape(self.currentData.shape[1])[index]):
             return observation, 10, True, {'hello':0}
+        
+        observation = observation/np.linalg.norm(observation, ord=1)
+        observation = np.concatenate((observation, action_obs), axis=1)
 
-        return observation/np.linalg.norm(observation, ord=1), reward, False, {'hello':0}
+        return observation, reward, False, {'hello':0}
     
 
     def getReward(self, currentState, targetState):
