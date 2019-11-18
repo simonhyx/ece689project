@@ -308,7 +308,8 @@ class controlEnv():
         index = np.where(S <0)[0]
         S[index] = 0
         
-
+        if nodeIndex is not None:
+            S[nodeIndex] = nodeVal
     
         return S
     
