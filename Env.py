@@ -299,6 +299,8 @@ class controlEnv():
         # action will be a vector of length 41
         
         action = np.argmax(action)
+        
+        print(action)
 
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
