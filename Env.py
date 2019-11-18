@@ -303,7 +303,7 @@ class controlEnv():
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
         
-        self.currentData[action] = 0
+        self.currentData[0,action] = 0
         
         
         t = np.linspace(0, 24*3600, 100*24*3600)
