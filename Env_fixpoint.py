@@ -65,6 +65,10 @@ class controlEnv():
 
         self.currentData = self.getData().values
 		
+        observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
+        action_obs = np.zeros(observation.shape[1])
+        #action_obs[np.array(self.action_list)] = 1
+        action_obs = action_obs.reshape(1,observation.shape[1])
 
 
         return self.currentData/np.linalg.norm(self.currentData, ord=1)
@@ -310,7 +314,7 @@ class controlEnv():
         
         reward = self.getReward(self.currentData.reshape(self.currentData.shape[1]), self.targetState.reshape(self.currentData.shape[1]))
         
-        observation = self.currentData
+        observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
         print(observation)
         
         action_obs = np.zeros(observation.shape[1])
@@ -333,20 +337,21 @@ class controlEnv():
         
         observation, action_obs, reward = self.getObsAndReward(action)
         print(observation)
+        observation = np.concatenate((observation, action_obs), axis=1)
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
         
         #self.currentData[0,action] = 0
 
-        if np.linalg.norm(observation, ord=1) == 0:
+        if np.linalg.norm(self.currentData, ord=1) == 0:
             return observation, -10, True, {'hello':0}
         
         index = np.where(self.targetState.reshape(self.currentData.shape[1]) > 0 )[0]
         if np.all(self.currentData.reshape(self.currentData.shape[1])[index] > self.targetState.reshape(self.currentData.shape[1])[index]):
             return observation, 10, True, {'hello':0}
         
-        observation = observation/np.linalg.norm(observation, ord=1)
-        observation = np.concatenate((observation, action_obs), axis=1)
+        #observation = observation
+        
 
         return observation, reward, False, {'hello':0}
     
