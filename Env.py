@@ -63,7 +63,7 @@ class controlEnv():
 		
 
 
-        return self.currentData
+        return self.currentData/np.linalg.norm(self.currentData, ord=1)
 
 
     def diffEqv2(self, x , t):
@@ -298,10 +298,14 @@ class controlEnv():
     def step(self, action):
         # action will be a vector of length 41
         
-        print(action)
+        action = np.argmax(action)
 
         #action = action.reshape(3, self.stocks_per_epi)
-        self.currentData = self.currentData *( action+1)
+        #self.currentData = self.currentData *( action+1)
+        
+        self.currentData[action] = 0
+        
+        
         t = np.linspace(0, 24*3600, 100*24*3600)
         sol = odeint(self.diffEqv2, self.currentData.reshape(self.currentData.shape[1],), t)
         self.currentData = sol[-1,:].reshape(1,self.currentData.shape[1])
@@ -317,7 +321,7 @@ class controlEnv():
         if np.all(self.currentData.reshape(self.currentData.shape[1])[index] > self.targetState.reshape(self.currentData.shape[1])[index]):
             return observation, 10, True, {'hello':0}
 
-        return observation, reward, False, {'hello':0}
+        return observation/np.linalg.norm(observation, ord=1), reward, False, {'hello':0}
     
 
     def getReward(self, currentState, targetState):
