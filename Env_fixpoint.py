@@ -62,6 +62,8 @@ class controlEnv():
 
     def reset(self):
         self.reward = 0 
+        
+        self.action_list = [] 
 
         self.currentData = self.getData().values
 		
@@ -77,6 +79,10 @@ class controlEnv():
 
 
     def diffEqv2(self, x , t, nodeIndex=None, nodeVal = 0):
+        
+        if nodeIndex is not None:
+            x[nodeIndex] = nodeVal
+        
         k1 = 10**-7
         kr1 = 10**-3
         kc1 =  1 
@@ -302,8 +308,7 @@ class controlEnv():
         index = np.where(S <0)[0]
         S[index] = 0
         
-        if nodeIndex is not None:
-            S[nodeIndex] = nodeVal
+
     
         return S
     
