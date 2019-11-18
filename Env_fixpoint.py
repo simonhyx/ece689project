@@ -33,6 +33,8 @@ class controlEnv():
         
         # negative 1 for ignore states, +1 for retained states
         self.targetState = target_state
+        
+        self.action_list = [] 
 
 		
     def getData(self):
@@ -66,7 +68,7 @@ class controlEnv():
         return self.currentData/np.linalg.norm(self.currentData, ord=1)
 
 
-    def diffEqv2(self, x , t, nodeIndex=-1, nodeVal = 0):
+    def diffEqv2(self, x , t, nodeIndex=None, nodeVal = 0):
         k1 = 10**-7
         kr1 = 10**-3
         kc1 =  1 
@@ -292,7 +294,7 @@ class controlEnv():
         index = np.where(S <0)[0]
         S[index] = 0
         
-        if nodeIndex >= 0:
+        if nodeIndex is not None:
             S[nodeIndex] = nodeVal
     
         return S
@@ -312,10 +314,10 @@ class controlEnv():
         #self.currentData = self.currentData *( action+1)
         
         #self.currentData[0,action] = 0
-        
+        self.action_list.append(action)
         
         t = np.linspace(0, 24*3600, 100*24*3600)
-        sol = odeint(self.diffEqv2, self.currentData.reshape(self.currentData.shape[1],), t, (action,0))
+        sol = odeint(self.diffEqv2, self.currentData.reshape(self.currentData.shape[1],), t, (np.array(self.action_list),0))
         self.currentData = sol[-1,:].reshape(1,self.currentData.shape[1])
         
         reward = self.getReward(self.currentData.reshape(self.currentData.shape[1]), self.targetState.reshape(self.currentData.shape[1]))
