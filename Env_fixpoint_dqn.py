@@ -25,7 +25,7 @@ class controlEnv():
         
         self.initialStates = df
 		
-        self.currentState = self.getData()
+        self.currentData = self.getData()
         
         self.allowed_actions = allowed_genes_to_be_perturbed
         
@@ -67,7 +67,7 @@ class controlEnv():
 
         self.currentData = self.getData().values
 		
-        observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
+        observation = np.log10(self.currentData+1)#/np.linalg.norm(self.currentData, ord=1)
         action_obs = np.zeros(observation.shape[1])
         #action_obs[np.array(self.action_list)] = 1
         action_obs = action_obs.reshape(1,observation.shape[1])
@@ -323,8 +323,8 @@ class controlEnv():
         self.currentData = sol[-1,:].reshape(1,self.currentData.shape[1])
         
         reward = self.getReward(self.currentData.reshape(self.currentData.shape[1]), self.targetState.reshape(self.currentData.shape[1]))
-        
-        observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
+        observation = np.log10(self.currentData+1)
+        #observation = self.currentData#/np.linalg.norm(self.currentData, ord=1)
         print(observation)
         
         action_obs = np.zeros(observation.shape[1])
