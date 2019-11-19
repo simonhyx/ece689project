@@ -37,7 +37,7 @@ from rl.agents import DQNAgent
 #from ddpg import DDPGAgent
 import copy
 
-from Env_fixpoint import controlEnv
+from Env_fixpoint_dqn import controlEnv
 from dataGeneratorEdge_redo_v2 import dataGenerator
 
 '''
