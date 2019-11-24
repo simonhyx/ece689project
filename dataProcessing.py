@@ -4,6 +4,8 @@ Created on Sat Nov 23 21:43:25 2019
 
 @author: simon
 """
+import numpy as np
+import glob
 
 path = './DataNormal/*.npy'
 files = glob.glob(path)
