@@ -7,7 +7,7 @@ Created on Sat Nov 23 21:43:25 2019
 import numpy as np
 import glob
 
-path = './DataNormal/*.npy'
+path = './DataNormal/data*.npy'
 files = glob.glob(path)
 
 
@@ -21,7 +21,7 @@ steadyStateData = np.array(steadyStateData)
 np.save("dataNormal", steadyStateData)
 
 
-path = './DataAlter/*.npy'
+path = './DataAlter/data*.npy'
 files = glob.glob(path)
 
 
