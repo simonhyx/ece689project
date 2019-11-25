@@ -36,7 +36,7 @@ class controlEnv():
         
         self.action_list = [] 
         
-        self.obs_space = len(df_normal.columns)*2
+        self.obs_space = len(df_normal.columns)*(numberOfSimulations+1)
         
         self.numOfSimulation = numberOfSimulations
         
@@ -363,7 +363,7 @@ class controlEnv():
         #print(np.linalg.norm(results, ord=1, axis = 1))
         observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
         #observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
-        #print(observation)
+        print(observation)
         #print(observation.shape)
         
         action_obs = np.zeros(observation.shape[1])
