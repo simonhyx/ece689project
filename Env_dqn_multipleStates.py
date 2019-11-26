@@ -388,6 +388,10 @@ class controlEnv():
         
         observation, action_obs, reward = self.getObsAndReward(action)
         
+        df = pd.DataFrame({'reward':[np.clip(reward, -1, 1)]})
+        with open('multiStates_dqn_progress.csv', 'a') as f:
+            df.to_csv(f, header=False, index=False)
+       
         if np.linalg.norm(observation, ord=1) == 0:
             return observation, -10, True, {'hello':0}
         
@@ -416,9 +420,6 @@ class controlEnv():
 
 
         #observation = observation
-        df = pd.DataFrame({'reward':[np.clip(reward, -1, 1)]})
-        with open('multiStates_dqn_progress.csv', 'a') as f:
-            df.to_csv(f, header=False, index=False)
 
         return observation, np.clip(reward, -1, 1), False, {'hello':0}
     
