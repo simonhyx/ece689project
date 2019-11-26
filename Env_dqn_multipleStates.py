@@ -98,7 +98,7 @@ class controlEnv():
         #if nodeIndex is not None:
             #print(nodeIndex)
             #x[nodeIndex] = nodeVal
-        index = np.where(x <0)
+        index = np.where(x <0)[0]
         x[index] = 0
         
         k1 = 10**-7
