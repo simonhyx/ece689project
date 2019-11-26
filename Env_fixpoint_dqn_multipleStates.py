@@ -31,7 +31,7 @@ class controlEnv():
         
         self.action_space = actionSpace(len(self.allowed_actions))
         
-        # negative 1 for ignore states, +1 for retained states
+        # negative 1 for ignore states, positive real value for retained states
         self.targetState = target_state
         
         self.action_list = [] 
@@ -389,10 +389,19 @@ class controlEnv():
         if np.linalg.norm(observation, ord=1) == 0:
             return observation, -10, True, {'hello':0}
         
+        conditions = []
+        count= 0 
         for element in observation:
-            index = np.where(element > 0 )[0]
-            if np.all(element[index] > element[index]):
-                return observation, 10, True, {'hello':0}
+            index = np.where(self.targetState > 0 )[0]
+            if np.all(element[index] > self.targetState[index]) and count == 0:
+                conditions.append(True)
+            if np.all(element[index] < self.targetState[index] and count >=1 ):
+                conditions.append(True)
+                #return observation, 10, True, {'hello':0}
+            conditions.append(False)
+                
+        if np.all(np.array(conditions) == True):
+            return observation, 10, True, {'hello':0}
             
         
         #print(observation.shape)
