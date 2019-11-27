@@ -40,6 +40,11 @@ import copy
 from Env_fixpoint_dqn import controlEnv
 from dataGeneratorEdge_redo_v2 import dataGenerator
 
+
+from Env_fixpoint_dqn_alter import controlEnv
+
+
+
 '''
 path = './simulatedData/*.npy'
 files = glob.glob(path)
@@ -53,16 +58,19 @@ for file in files:
 
 steadyStateData = np.array(steadyStateData)
 np.save("data", steadyStateData)
-'''
 
 steadyStateData = np.load("data.npy")
+steadyStateData2 = np.load("data.npy")
+'''
 
+steadyStateData = np.load("dataNormal.npy")
+steadyStateData2 = np.load("dataAlter.npy")
 generator = dataGenerator()
 colNames = generator.variableList()
 connection = generator.generateGraph()
 
-df = pd.DataFrame(steadyStateData, columns=colNames)
-
+dfNormal = pd.DataFrame(steadyStateData, columns=colNames)
+dfAlter = pd.DataFrame(steadyStateData2, columns=colNames)
 
 targetState = copy.deepcopy(df.loc[0:0])
 for element in targetState.columns:
