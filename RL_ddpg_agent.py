@@ -55,6 +55,16 @@ steadyStateData = np.array(steadyStateData)
 np.save("data", steadyStateData)
 '''
 
+
+steadyStateData = np.load("dataNormal.npy")
+steadyStateData2 = np.load("dataAlter.npy")
+generator = dataGenerator()
+colNames = generator.variableList()
+connection = generator.generateGraph()
+
+dfNormal = pd.DataFrame(steadyStateData, columns=colNames)
+dfAlter = pd.DataFrame(steadyStateData2, columns=colNames)
+'''
 steadyStateData = np.load("data.npy")
 
 generator = dataGenerator()
@@ -62,14 +72,14 @@ colNames = generator.variableList()
 connection = generator.generateGraph()
 
 df = pd.DataFrame(steadyStateData, columns=colNames)
+'''
 
-
-targetState = copy.deepcopy(df.loc[0:0])
+targetState = copy.deepcopy(dfNormal.loc[0:0])
 for element in targetState.columns:
     targetState[element] = -1
-targetState['C3*'] = df['C3*'].max() *2
-env = controlEnv(df, colNames, targetState.values.reshape(41,))
+targetState['C3*'] = dfNormal['C3*'].max() *2
 
+env = controlEnv(dfNormal, dfAlter, colNames, targetState.values.reshape(41,))
 
 
 
