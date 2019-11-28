@@ -82,7 +82,8 @@ class controlEnv():
         self.action_list = [] 
 
         self.currentState = self.getAllStates()
-		
+		while np.any(isnan(self.currentState)):
+            self.currentState = self.getAllStates()
         observation = np.log10(self.currentState.values.reshape(1, self.currentState.shape[0]*self.currentState.shape[1] ) +1)
         action_obs = np.zeros(self.action_space.n)
         #action_obs[np.array(self.action_list)] = 1
