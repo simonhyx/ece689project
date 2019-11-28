@@ -349,6 +349,8 @@ class controlEnv():
         print(action)
         print(action)
         
+        if action == 1:
+            action = 0
         
         observation, action_obs, reward = self.getObsAndReward(action)
         print(observation)
