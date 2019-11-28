@@ -370,12 +370,12 @@ class controlEnv():
         #observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
         print(observation)
         #print(observation.shape)
-        
+        '''
         action_obs = np.zeros(observation.shape[1])
         action_obs[np.array(self.action_list)] = 1
         action_obs = action_obs.reshape(1,observation.shape[1])
-        
-        return observation, action_obs, reward
+        '''
+        return observation, reward
     
     #alloed actions, buy, sell 	
     def step(self, action):
@@ -389,7 +389,7 @@ class controlEnv():
         print(action)
         
         
-        observation, action_obs, reward = self.getObsAndReward(action)
+        observation, reward = self.getObsAndReward(action)
         
         df = pd.DataFrame({'reward':[np.clip(reward, -1, 1)]})
         with open('multiStates_ddpg_progress3.csv', 'a') as f:
@@ -415,7 +415,8 @@ class controlEnv():
         
         #print(observation.shape)
         #print(action_obs.shape)
-        observation = np.concatenate((observation.reshape(1,observation.shape[0]*observation.shape[1]), action_obs), axis=1)
+        observation = observation.reshape(1,observation.shape[0]*observation.shape[1])
+        #observation = np.concatenate((observation.reshape(1,observation.shape[0]*observation.shape[1]), action_obs), axis=1)
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
         
