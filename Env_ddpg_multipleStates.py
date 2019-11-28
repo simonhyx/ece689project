@@ -369,7 +369,7 @@ class controlEnv():
         observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
         #observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
         print(observation)
-        #print(observation.shape)
+        print(observation.shape)
         '''
         action_obs = np.zeros(observation.shape[1])
         action_obs[np.array(self.action_list)] = 1
