@@ -366,7 +366,8 @@ class controlEnv():
         self.currentState = pd.DataFrame(results, columns=self.initialStatesNormal.columns)
         #print(results.shape)
         #print(np.linalg.norm(results, ord=1, axis = 1))
-        observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
+        observation = np.log10(results+1)
+        #observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
         #observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
         print(observation)
         #print(observation.shape)
