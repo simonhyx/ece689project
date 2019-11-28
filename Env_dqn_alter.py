@@ -319,7 +319,7 @@ class controlEnv():
         self.action_list.append(action)
         
         #print(self.action_list)
-        print(currentData.shape)
+        #print(currentData.shape)
         self.currentData[:,action] = 0
         
         t = np.linspace(0, 24*3600, 100*2*3600)
