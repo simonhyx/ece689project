@@ -22,7 +22,7 @@ from scipy.integrate import solve_ivp
 
 
 class controlEnv():
-    def __init__(self, df, allowed_genes_to_be_perturbed, target_state):
+    def __init__(self, df, allowed_genes_to_be_perturbed, target_state, max_step = 20):
         #non permutable variables
         
         self.initialStates = df
@@ -39,6 +39,9 @@ class controlEnv():
         self.action_list = [] 
         
         self.obs_space = len(df.columns)*2
+        
+        self.max_step = max_step
+        self.steps =0 
 
 		
     def getData(self):
@@ -64,7 +67,7 @@ class controlEnv():
 
     def reset(self):
         self.reward = 0 
-        
+        self.steps = 0
         self.action_list = [] 
 
         self.currentData = self.getData().values
@@ -368,6 +371,9 @@ class controlEnv():
             return observation, 10, True, {'hello':0}
         
         #observation = observation
+        self.steps += 1
+        if self.max_step == self.steps:
+            return observation, reward, True, {'hello':0}
         
 
         return observation, reward, False, {'hello':0}

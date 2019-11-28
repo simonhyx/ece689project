@@ -155,7 +155,7 @@ dqn = DQNAgent(model=model, nb_actions=nb_actions, policy=policy, memory=memory,
                train_interval=4, delta_clip=1.)
 dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
-dqn.fit(env, nb_steps=1750000, log_interval=10000, nb_max_episode_steps=5)
+dqn.fit(env, nb_steps=1750000, log_interval=10000, nb_max_episode_steps=10)
 
 
 
