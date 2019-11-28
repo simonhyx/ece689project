@@ -37,7 +37,7 @@ class controlEnv():
         
         self.action_list = [] 
         
-        self.obs_space = len(df_normal.columns)*(numberOfSimulations+1)
+        self.obs_space = len(df_normal.columns)*numberOfSimulations
         
         self.numOfSimulation = numberOfSimulations
         
