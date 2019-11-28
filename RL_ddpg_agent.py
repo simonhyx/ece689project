@@ -166,11 +166,11 @@ def actor_net(in_shape, n_classes = 2):
     return model
 
 
-actor = actor_net((nb_actions,),nb_actions)
+actor = actor_net((env.obs_space,),nb_actions)
 print(actor.summary())
 
 action_space = (nb_actions,)
-observation_space = (nb_actions,)
+observation_space = (env.obs_space,)
 
 
 action_input = Input(action_space, name='action_input')
