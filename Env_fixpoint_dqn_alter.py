@@ -321,7 +321,7 @@ class controlEnv():
         #print(self.action_list)
         
         t = np.linspace(0, 24*3600, 100*2*3600)
-        sol = solve_ivp(self.diffEqv2, (0, 2*3600), self.currentData.reshape(self.currentData.shape[1],))
+        sol = solve_ivp(self.diffEqv2, (0, 2*3600), self.currentData.reshape(self.currentData.shape[1],), method = 'Radau')
         #print(sol.y.shape)
         self.currentData = sol.y[:,-1].reshape(1,self.currentData.shape[1])
         
