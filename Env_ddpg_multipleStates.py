@@ -86,9 +86,9 @@ class controlEnv():
         observation = np.log10(self.currentState.values.reshape(1, self.currentState.shape[0]*self.currentState.shape[1] ) +1)
         action_obs = np.zeros(self.action_space.n)
         #action_obs[np.array(self.action_list)] = 1
-        action_obs = action_obs.reshape(1,self.action_space.n)
+        #action_obs = action_obs.reshape(1,self.action_space.n)
         
-        observation = np.concatenate((observation, action_obs), axis=1)
+        #observation = np.concatenate((observation, action_obs), axis=1)
 
 
         return observation
@@ -366,7 +366,8 @@ class controlEnv():
         self.currentState = pd.DataFrame(results, columns=self.initialStatesNormal.columns)
         #print(results.shape)
         #print(np.linalg.norm(results, ord=1, axis = 1))
-        observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
+        observation = np.log10(results)
+        #observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
         #observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
         print(observation)
         print(observation.shape)
