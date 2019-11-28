@@ -75,7 +75,7 @@ dfAlter = pd.DataFrame(steadyStateData2, columns=colNames)
 targetState = copy.deepcopy(df.loc[0:0])
 for element in targetState.columns:
     targetState[element] = -1
-targetState['C3*'] = df['C3*'].max() *2
+targetState['C3*'] = df['C3*'].mean() + 2*df['C3*'].std()
 env = controlEnv(df, colNames, targetState.values.reshape(41,))
 
 
