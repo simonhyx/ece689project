@@ -349,7 +349,7 @@ class controlEnv():
         print(action)
         print(action)
         
-        if action == 1:
+        if action == 1 or action == 35:
             action = 0
         
         observation, action_obs, reward = self.getObsAndReward(action)
