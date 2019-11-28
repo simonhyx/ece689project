@@ -69,7 +69,7 @@ generator = dataGenerator()
 colNames = generator.variableList()
 connection = generator.generateGraph()
 
-dfNormal = pd.DataFrame(steadyStateData, columns=colNames)
+df = pd.DataFrame(steadyStateData, columns=colNames)
 dfAlter = pd.DataFrame(steadyStateData2, columns=colNames)
 
 targetState = copy.deepcopy(df.loc[0:0])
