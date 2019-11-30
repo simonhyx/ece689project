@@ -241,7 +241,7 @@ agent.compile(Adam(lr=.001, clipnorm=1.), metrics=['mse'])
 # Okay, now it's time to learn something! We visualize the training here for show, but this
 # slows down training quite a lot. You can always safely abort the training prematurely using
 # Ctrl + C.
-agent.fit(env, nb_steps=90000, visualize=True, verbose=1, nb_max_episode_steps=10)
+agent.fit(env, nb_steps=90000, visualize=True, verbose=1, nb_max_episode_steps=50)
 
 
 
