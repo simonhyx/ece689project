@@ -160,7 +160,7 @@ def actor_net(in_shape, n_classes = 2):
 #	net = LSTM(8,  return_sequences = True)(net)
     net = Dense(32, activation = 'relu')(net)
     
-    out = Dense(n_classes, activation = 'relu')(net)
+    out = Dense(n_classes, activation = 'linear')(net)
 #
     model = Model(inputs=img,outputs=out)
     return model
