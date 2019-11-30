@@ -393,7 +393,7 @@ class controlEnv():
         print(action)
         print(action)
         print(action)
-        
+        action = 10**action
         
         observation, reward = self.getObsAndReward(action)
         
