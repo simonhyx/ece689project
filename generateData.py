@@ -22,7 +22,7 @@ generator = dataGenerator()
 
 
 
-for i in range(0,1000):
+for i in range(0,100):
     print(i)
     name = "./DataNormal/" + 'data_' + str(i)
     init_name =  "./DataNormal/" + 'init_cond_' + str(i)
@@ -42,7 +42,7 @@ for i in range(0,1000):
     np.save(init_name, np.array(init))
     
     
-for i in range(0,1000):
+for i in range(0,100):
     print(i)
     name = "./DataAlter/" + 'data_' + str(i)
     init_name =  "./DataAlter/" + 'init_cond_' + str(i)
