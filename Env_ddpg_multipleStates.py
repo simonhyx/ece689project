@@ -373,6 +373,7 @@ class controlEnv():
         #print(results.shape)
         #print(np.linalg.norm(results, ord=1, axis = 1))
         print(results)
+        import numpy as np
         observation = np.log10(results+1)
         #observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
         #observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
