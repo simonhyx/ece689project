@@ -347,7 +347,7 @@ class controlEnv():
     
     def getObsAndReward(self, action):
         #self.action_list.append(action)
-        import numpy as np
+        #import numpy as np
         #print(self.action_list)
         results = 0
         reward = 0
@@ -372,9 +372,15 @@ class controlEnv():
         self.currentState = pd.DataFrame(results, columns=self.initialStatesNormal.columns)
         #print(results.shape)
         #print(np.linalg.norm(results, ord=1, axis = 1))
-        print(results)
+        print(results.shape)
+        #print(np)
+        #print(np.log10(10))
+        #print(results+1)
         
-        observation = np.log10(results+1)
+        
+        observation = np.log10(results.astype(float)+1)
+        #observation  = results
+        
         #observation = results/np.linalg.norm(results, ord=1, axis = 1)[:,None]
         #observation = self.currentData/np.linalg.norm(self.currentData, ord=1)
         print(observation)
