@@ -30,7 +30,7 @@ class controlEnv():
         
         self.allowed_actions = allowed_genes_to_be_perturbed
         
-        self.action_space = actionSpace(1)
+        self.action_space = actionSpace(41)
         
         # negative 1 for ignore states, positive real value for retained states
         self.targetState = target_state
@@ -354,7 +354,8 @@ class controlEnv():
 
         for i in range(0, self.numOfSimulation):
             currentState = self.currentState.iloc[i].values
-            currentState[0] += action
+            #currentState[0] += action
+            currentState += action
             #print('wtf')
             #print(currentState.shape)
             result = self.computeNextState(currentState) 
@@ -393,7 +394,8 @@ class controlEnv():
         print(action)
         print(action)
         print(action)
-        action = np.clip(action, -33, 33)
+        action = np.clip(action, -10**20, 10**20)
+        #action = np.clip(action, -33, 33)
         action = 10**action
         
         observation, reward = self.getObsAndReward(action)
