@@ -355,7 +355,7 @@ class controlEnv():
         for i in range(0, self.numOfSimulation):
             currentState = self.currentState.iloc[i].values
             #currentState[0] += action
-            currentState += action
+            currentState = currentState + action
             #print('wtf')
             #print(currentState.shape)
             result = self.computeNextState(currentState) 
