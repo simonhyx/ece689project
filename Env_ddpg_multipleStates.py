@@ -19,6 +19,7 @@ from dataGeneratorEdge_redo_v2 import dataGenerator
 from sklearn.metrics import mean_squared_error
 import pandas as pd
 from scipy.integrate import solve_ivp
+import copy
 
 class controlEnv():
     def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 3):
@@ -28,9 +29,11 @@ class controlEnv():
         self.initialStatesAlter  = df_alter
         
         
-        self.allowed_actions = allowed_genes_to_be_perturbed
+        self.allowed_actions = np.array(allowed_genes_to_be_perturbed)
         
-        self.action_space = actionSpace(41)
+        #self.action_index = np.where()
+        
+        self.action_space = actionSpace(len(self.allowed_actions))
         
         # negative 1 for ignore states, positive real value for retained states
         self.targetState = target_state
@@ -351,11 +354,19 @@ class controlEnv():
         #print(self.action_list)
         results = 0
         reward = 0
+        
+        currentStates = copy.deepcopy(self.currentState)
 
         for i in range(0, self.numOfSimulation):
-            currentState = self.currentState.iloc[i].values
+            #currentState = self.currentState.iloc[i].values
             #currentState[0] += action
-            currentState = currentState + action
+            #currentState = currentState + action
+            
+            currentStates.iloc[i][self.allowed_actions] = currentStates.iloc[i][self.allowed_actions] + action
+            
+            currentState = currentStates.iloc[i].values
+            
+            
             #print('wtf')
             #print(currentState.shape)
             result = self.computeNextState(currentState) 

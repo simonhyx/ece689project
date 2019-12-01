@@ -79,7 +79,10 @@ for element in targetState.columns:
     targetState[element] = -1
 targetState['C3*'] = dfNormal['C3*'].max() *2
 dfAlter['C3*'].max() *2
-env = controlEnv(dfNormal, dfAlter, colNames, targetState.values.reshape(41,))
+
+allowed_actions = ['pC8', 'pC3', 'BAX', 'XIAP' , 'TRAIL']
+
+env = controlEnv(dfNormal, dfAlter, allowed_actions, targetState.values.reshape(41,))
 
 
 
