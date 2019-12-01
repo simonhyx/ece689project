@@ -78,7 +78,7 @@ targetState = copy.deepcopy(dfNormal.loc[0:0])
 for element in targetState.columns:
     targetState[element] = -1
 targetState['C3*'] = dfNormal['C3*'].max() *2
-
+dfAlter['C3*'].max() *2
 env = controlEnv(dfNormal, dfAlter, colNames, targetState.values.reshape(41,))
 
 
