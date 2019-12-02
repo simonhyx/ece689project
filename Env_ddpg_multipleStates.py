@@ -22,7 +22,7 @@ from scipy.integrate import solve_ivp
 import copy
 
 class controlEnv():
-    def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 3):
+    def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 2):
         #non permutable variables
         
         self.initialStatesNormal = df_normal
