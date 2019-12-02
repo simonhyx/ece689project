@@ -375,7 +375,7 @@ class controlEnv():
                 reward += self.getReward(result, self.targetState) 
             else:
                 results = np.concatenate((results, result), axis=0)
-                #reward += self.getReward(result, self.targetState, False) * 1/(self.numOfSimulation-1)
+                reward += self.getReward(result, self.targetState, False) * 1/(self.numOfSimulation-1)
             
 
         
