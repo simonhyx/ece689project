@@ -429,19 +429,21 @@ class controlEnv():
         conditions = []
         count= 0 
         for element in observation:
+            #print(observation.shape)
             index = np.where(self.targetState > 0 )[0]
             if np.all(element[index] > np.log10(self.targetState[index]+1)) and count == 0:
                 print('element index += ')
                 print(element[index])
                 print(index)
                 conditions.append(True)
-            if np.all(element[index] < np.log10(self.targetState[index]+1) and count >=1 ):
+            elif np.all(element[index] < np.log10(self.targetState[index]+1) and count >=1 ):
                 print('element index = ')
                 print(element[index])
                 print(index)
                 conditions.append(True)
                 #return observation, 10, True, {'hello':0}
-            conditions.append(False)
+            else:
+                conditions.append(False)
             count += 1
                 
 
