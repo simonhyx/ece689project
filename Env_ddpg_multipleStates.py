@@ -462,6 +462,9 @@ class controlEnv():
         v1 = currentState[0][index]
         v2 = targetState[index]
         
+        print(v1)
+        print(v2)
+        
         #print(v1,v2)
         #print(mean_squared_error(v1,v2))
         #print(np.linalg.norm(v2, ord=1))
