@@ -413,9 +413,9 @@ class controlEnv():
         print(action)
         print(action)
         print(action)
-        #action = np.clip(action, -10**20, 10**20)
-        action = np.clip(action, -33, 33)
-        action = 10**action
+        action = np.clip(action, -10**20, 10**20)
+        #action = np.clip(action, -33, 33)
+        #action = 10**action
         
         observation, reward = self.getObsAndReward(action)
         
