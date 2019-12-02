@@ -485,9 +485,13 @@ class controlEnv():
         #print(np.linalg.norm(v2, ord=1))
         
         if overExpression == False:
-            return np.sqrt(mean_squared_error(v1, v2)) / np.linalg.norm(v2, ord=1)
+            reward = (v2 - v1).sum()/ np.linalg.norm(v2, ord=1)
+            return np.clip(reward, -1, 1)
+            #return np.sqrt(mean_squared_error(v1, v2)) / np.linalg.norm(v2, ord=1)
+        
 
-        reward = -1* np.sqrt(mean_squared_error(v1, v2)) / np.linalg.norm(v2, ord=1)
+        reward = (v1 - v2).sum()/ np.linalg.norm(v2, ord=1)
+        #reward = -1* np.sqrt(mean_squared_error(v1, v2)) / np.linalg.norm(v2, ord=1)
         
         return np.clip(reward, -1, 1)
         
