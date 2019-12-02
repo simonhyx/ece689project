@@ -438,7 +438,12 @@ class controlEnv():
             conditions.append(False)
                 
         if np.all(np.array(conditions) == True):
+            print('Suceed')
             return observation, 10, True, {'hello':0}
+        if np.any(np.array(conditions[1:]) == False):
+            print('Fail')
+            return observation, -10, True, {'hello':0}
+            
             
         
         #print(observation.shape)
