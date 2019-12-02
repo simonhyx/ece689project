@@ -431,7 +431,7 @@ class controlEnv():
         for element in observation:
             index = np.where(self.targetState > 0 )[0]
             if np.all(element[index] > np.log10(self.targetState[index]+1)) and count == 0:
-                print('element index = ')
+                print('element index += ')
                 print(element[index])
                 print(index)
                 conditions.append(True)
@@ -461,6 +461,7 @@ class controlEnv():
             return observation, 10, True, {'hello':0}
         if np.any(np.array(conditions[1:]) == False):
             print('Fail')
+            print(conditions)
             return observation, -10, True, {'hello':0}
 
         #observation = observation
