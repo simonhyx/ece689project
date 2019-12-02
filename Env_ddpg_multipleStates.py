@@ -460,7 +460,7 @@ class controlEnv():
         #self.currentData[0,action] = 0
         if np.all(np.array(conditions) == True):
             print('Suceed')
-            return observation, 10, True, {'hello':0}
+            return observation, 100, True, {'hello':0}
         if np.any(np.array(conditions[1:]) == False):
             print('Fail')
             print(conditions)
