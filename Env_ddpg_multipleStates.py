@@ -436,6 +436,7 @@ class controlEnv():
                 conditions.append(True)
                 #return observation, 10, True, {'hello':0}
             conditions.append(False)
+            count += 1
                 
 
             
