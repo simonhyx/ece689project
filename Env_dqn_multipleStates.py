@@ -21,7 +21,7 @@ import pandas as pd
 from scipy.integrate import solve_ivp
 
 class controlEnv():
-    def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 3):
+    def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 2):
         #non permutable variables
         
         self.initialStatesNormal = df_normal
@@ -36,6 +36,8 @@ class controlEnv():
         self.targetState = target_state
         
         self.action_list = [] 
+        
+        #self.obs_space = len(df_normal.columns)*(numberOfSimulations+1)
         
         self.obs_space = len(df_normal.columns)*(numberOfSimulations+1)
         
@@ -439,9 +441,12 @@ class controlEnv():
         #print(np.linalg.norm(v2, ord=1))
         
         if overExpression == False:
-            return 0
+            reward = (v2 - v1).sum()/ np.linalg.norm(v2, ord=1)
+            return np.clip(reward, -1, 1)
+            #return np.sqrt(mean_squared_error(v1, v2)) / np.linalg.norm(v2, ord=1)
+        
 
-        reward = -1* np.sqrt(mean_squared_error(v1, v2)) / np.linalg.norm(v2, ord=1)
+        reward = (v1 - v2).sum()/ np.linalg.norm(v2, ord=1)
         
         return np.clip(reward, -1, 1)
         
