@@ -33,14 +33,14 @@ class controlEnv():
         
         #self.action_index = np.where()
         
-        self.action_space = actionSpace(len(self.allowed_actions)+1)
+        self.action_space = actionSpace(len(self.allowed_actions))
         
         # negative 1 for ignore states, positive real value for retained states
         self.targetState = target_state
         
         self.action_list = [] 
         
-        self.obs_space = len(df_normal.columns)*numberOfSimulations
+        self.obs_space = len(df_normal.columns)*numberOfSimulations +1
         
         self.numOfSimulation = numberOfSimulations
         
