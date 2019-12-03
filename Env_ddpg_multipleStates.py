@@ -428,8 +428,7 @@ class controlEnv():
         with open('multiStates_ddpg_progress3.csv', 'a') as f:
             df.to_csv(f, header=False, index=False)
        
-        if np.linalg.norm(observation, ord=1) == 0:
-            return observation, -10, True, {'hello':0}
+
         
         conditions = []
         count= 0 
@@ -465,6 +464,8 @@ class controlEnv():
         #self.currentData = self.currentData *( action+1)
         
         #self.currentData[0,action] = 0
+        #if np.linalg.norm(observation, ord=1) == 0:
+         #   return observation, -10, True, {'hello':0}
         if np.all(np.array(conditions) == True):
             print('Suceed')
             return observation, 100, True, {'hello':0}
