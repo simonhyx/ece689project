@@ -162,6 +162,7 @@ def actor_net(in_shape, n_classes = 2):
     net = Dense(32, activation = 'relu')(img)
 #	net = LSTM(8,  return_sequences = True)(net)
     net = Dense(32, activation = 'relu')(net)
+    net = Dense(32, activation = 'relu')(net)
     
     out = Dense(n_classes, activation = 'linear')(net)
 #
@@ -183,11 +184,11 @@ observation_input = Input(observation_space, name = "obs_input")
 
 #flattened_observation = Flatten()(net)
 x = Concatenate()([action_input, observation_input])
-x = Dense(16)(x)
+x = Dense(32)(x)
 x = Activation('relu')(x)
-x = Dense(16)(x)
+x = Dense(32)(x)
 x = Activation('relu')(x)
-x = Dense(16)(x)
+x = Dense(32)(x)
 x = Activation('relu')(x)
 x = Dense(1)(x)
 x = Activation('linear')(x)

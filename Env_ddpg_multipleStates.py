@@ -33,7 +33,7 @@ class controlEnv():
         
         #self.action_index = np.where()
         
-        self.action_space = actionSpace(len(self.allowed_actions))
+        self.action_space = actionSpace(len(self.allowed_actions)+1)
         
         # negative 1 for ignore states, positive real value for retained states
         self.targetState = target_state
@@ -45,6 +45,8 @@ class controlEnv():
         self.numOfSimulation = numberOfSimulations
         
         self.currentState = self.getAllStates()
+        
+        
 
 		
     def getData(self, normal=True):
@@ -95,6 +97,9 @@ class controlEnv():
         #action_obs = np.zeros(self.action_space.n)
         #action_obs[np.array(self.action_list)] = 1
         #action_obs = action_obs.reshape(1,self.action_space.n)
+        
+        index = np.where(self.targetState > 0 )[0]
+        observation = np.append(observation, np.log10(self.targetState[index]+1))
         
         #observation = np.concatenate((observation, action_obs), axis=1)
 
@@ -452,7 +457,9 @@ class controlEnv():
         
         #print(observation.shape)
         #print(action_obs.shape)
+        index = np.where(self.targetState > 0 )[0]
         observation = observation.reshape(1,observation.shape[0]*observation.shape[1])
+        observation = np.append(observation, np.log10(self.targetState[index]+1))
         #observation = np.concatenate((observation.reshape(1,observation.shape[0]*observation.shape[1]), action_obs), axis=1)
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
