@@ -99,8 +99,8 @@ class controlEnv():
         #action_obs = action_obs.reshape(1,self.action_space.n)
         
         index = np.where(self.targetState > 0 )[0]
-        observation = np.append(observation, np.log10(self.targetState[index]+1))
-        
+        #observation = np.append(observation, np.log10(self.targetState[index]+1))
+        observation[0] = np.append(observation[0], np.log10(self.targetState[index]+1))
         #observation = np.concatenate((observation, action_obs), axis=1)
 
 
@@ -458,7 +458,7 @@ class controlEnv():
         #print(action_obs.shape)
         index = np.where(self.targetState > 0 )[0]
         observation = observation.reshape(1,observation.shape[0]*observation.shape[1])
-        observation = np.append(observation, np.log10(self.targetState[index]+1))
+        observation[0] = np.append(observation[0], np.log10(self.targetState[index]+1))
         #observation = np.concatenate((observation.reshape(1,observation.shape[0]*observation.shape[1]), action_obs), axis=1)
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
