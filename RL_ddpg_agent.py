@@ -82,6 +82,8 @@ dfAlter['C3*'].max() *2
 
 allowed_actions = ['pC8', 'pC3', 'BAX', 'XIAP' , 'TRAIL', 'PARP', 'PTEN', 'AKT', 'Bcl-2']
 
+allowed_actions = dfNormal.columns
+
 env = controlEnv(dfNormal, dfAlter, allowed_actions, targetState.values.reshape(41,))
 
 
