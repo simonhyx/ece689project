@@ -398,6 +398,7 @@ class controlEnv():
         with open('multiStates_dqn_progress3.csv', 'a') as f:
             df.to_csv(f, header=False, index=False)
        
+        '''
         if np.linalg.norm(observation, ord=1) == 0:
             return observation, -10, True, {'hello':0}
         
@@ -414,7 +415,28 @@ class controlEnv():
                 
         if np.all(np.array(conditions) == True):
             return observation, 10, True, {'hello':0}
-            
+         '''
+        conditions = []
+        count= 0 
+        for element in observation:
+            #print(observation.shape)
+            index = np.where(self.targetState > 0 )[0]
+            if np.all(element[index] > np.log10(self.targetState[index]+1)) and count == 0:
+                #print('element index += ')
+                #print(element[index])
+                #print(index)
+                conditions.append(True)
+            elif np.all(element[index] < np.log10(self.targetState[index]+1) and count >=1 ):
+                #print('element index = ')
+                #print(element[index])
+                #print(index)
+                conditions.append(True)
+                #return observation, 10, True, {'hello':0}
+            else:
+                conditions.append(False)
+            count += 1
+                
+
         
         #print(observation.shape)
         #print(action_obs.shape)
@@ -424,7 +446,13 @@ class controlEnv():
         
         #self.currentData[0,action] = 0
 
-
+        if np.all(np.array(conditions) == True):
+            print('Suceed')
+            return observation, 100, True, {'hello':0}
+        if np.any(np.array(conditions[1:]) == False):
+            print('Fail')
+            print(conditions)
+            return observation, -10, True, {'hello':0}
         #observation = observation
 
         return observation, np.clip(reward, -1, 1), False, {'hello':0}
