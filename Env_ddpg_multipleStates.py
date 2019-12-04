@@ -349,7 +349,7 @@ class controlEnv():
     def computeNextState(self, data):
         t = np.linspace(0, 24*3600, 100*2*3600)
         #sol = odeint(self.diffEqv2, data, t, (np.array(self.action_list),0))
-        sol = solve_ivp(self.diffEqv2, (0, 0.1*3600), data, method = 'Radau')
+        sol = solve_ivp(self.diffEqv2, (0, 5*3600), data, method = 'Radau')
         #return sol[-1,:].reshape(1,sol.shape[1])
         return sol.y[:,-1].reshape(1,sol.y.shape[0])
     
