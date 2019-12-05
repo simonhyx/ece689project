@@ -396,7 +396,7 @@ class controlEnv():
         #action = np.clip(action, -33, 33)
         #action = 10**action
         
-        observation, reward = self.getObsAndReward(action)
+        observation, action_obs, reward = self.getObsAndReward(action)
         
         df = pd.DataFrame({'reward':[np.clip(reward, -1, 1)]})
         with open('multiStates_ddpg_progress3.csv', 'a') as f:
@@ -431,13 +431,13 @@ class controlEnv():
         #print(observation.shape)
         #print(action_obs.shape)
         index = np.where(self.targetState > 0 )[0]
-        observation = observation.reshape(1,observation.shape[0]*observation.shape[1])
+        #observation = observation.reshape(1,observation.shape[0]*observation.shape[1])
         #observation[0] = np.append(observation[0], np.log10(self.targetState[index]+1))
-        observation = np.append(observation[0], np.log10(self.targetState[index]+1)).reshape(1, self.currentState.shape[0]*self.currentState.shape[1]+1 )
+        #observation = np.append(observation[0], np.log10(self.targetState[index]+1)).reshape(1, self.currentState.shape[0]*self.currentState.shape[1]+1 )
         #observation = np.concatenate((observation.reshape(1,observation.shape[0]*observation.shape[1]), action_obs), axis=1)
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
-        
+        observation = np.concatenate((np.log10(observation+1).reshape(1,observation.shape[0]*observation.shape[1]), action_obs), axis=1)
         #self.currentData[0,action] = 0
         #if np.linalg.norm(observation, ord=1) == 0:
          #   return observation, -10, True, {'hello':0}
