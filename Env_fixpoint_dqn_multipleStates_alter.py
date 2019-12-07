@@ -450,6 +450,7 @@ class controlEnv():
         index = np.where(self.targetState > 0 )[0]
         threshold = np.log10(self.targetState[index]+1)
         print(observation.shape)
+        print(threshold)
         observation = np.concatenate((observation, np.array([[threshold]])), axis = 1 )
         
         
