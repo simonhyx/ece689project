@@ -392,6 +392,7 @@ class controlEnv():
         #print(observation.shape)
         
         action_obs = np.zeros(observation.shape[1])
+        print(self.action_list)
         action_obs[np.array(self.action_list)] = 1
         action_obs = action_obs.reshape(1,observation.shape[1])
         
