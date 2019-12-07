@@ -412,7 +412,7 @@ class controlEnv():
         action = np.clip(action, -10**20, 10**20)
         #action = np.clip(action, -33, 33)
         #action = 10**action
-        print()
+        
         observation, action_obs, reward = self.getObsAndReward(action)
         
         df = pd.DataFrame({'reward':[np.clip(reward, -1, 1)]})
@@ -421,7 +421,7 @@ class controlEnv():
        
 
         
-        conditions = [self.action_list]
+        conditions = []
         count= 0 
         for element in observation:
             #print(observation.shape)
