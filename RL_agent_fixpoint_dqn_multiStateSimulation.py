@@ -80,9 +80,10 @@ targetState['C3*'] = dfNormal['C3*'].max() *2
 
 env = controlEnv(dfNormal, dfAlter, colNames, targetState.values.reshape(41,))
 
+'''
 env.getObsAndReward(3)
 env.step(3)
-
+'''
 #env = gym.make(args.env_name)
 np.random.seed(123)
 #env.seed(123)
