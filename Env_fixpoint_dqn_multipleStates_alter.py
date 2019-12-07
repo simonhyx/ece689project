@@ -332,7 +332,8 @@ class controlEnv():
                 ep41])
         #index = np.where(S <0)[0]
         #S[index] = 0
-        
+        if nodeIndex is not None:
+            S[nodeIndex] = nodeVal
         #if nodeIndex is not None:
             
             #S[nodeIndex] = nodeVal
