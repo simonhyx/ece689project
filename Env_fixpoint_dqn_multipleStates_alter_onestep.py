@@ -18,6 +18,7 @@ from scipy.integrate import odeint
 from dataGeneratorEdge_redo_v2 import dataGenerator
 from sklearn.metrics import mean_squared_error
 import pandas as pd
+from scipy.integrate import solve_ivp
 
 class controlEnv():
     def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 2):
@@ -107,7 +108,10 @@ class controlEnv():
         return observation
 
 
-    def diffEqv2(self, x , t, nodeIndex=None, nodeVal = 0):
+    def diffEqv2(self, t , x, nodeIndex=None, nodeVal = 0):
+        
+        nodeIndex= self.action_list
+        
         index = np.where(x <0)[0]
         x[index] = 0
         if nodeIndex is not None:
@@ -352,8 +356,9 @@ class controlEnv():
     
     def computeNextState(self, data):
         t = np.linspace(0, 24*3600, 100*2*3600)
-        sol = odeint(self.diffEqv2, data, t, (np.array(self.action_list),0))
-        return sol[-1,:].reshape(1,sol.shape[1])
+        sol = solve_ivp(self.diffEqv2, (0, 2*3600), data, method = 'Radau')
+        #return sol[-1,:].reshape(1,sol.shape[1])
+        return sol.y[:,-1].reshape(1,sol.y.shape[0])
     
     def getObsAndReward(self, action):
         
