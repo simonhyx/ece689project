@@ -36,7 +36,7 @@ class controlEnv():
         
         self.action_list = [] 
         
-        self.obs_space = len(df_normal.columns)*(numberOfSimulations+1)
+        self.obs_space = len(df_normal.columns)*(numberOfSimulations+1)+1
         
         self.numOfSimulation = numberOfSimulations
         
@@ -96,7 +96,11 @@ class controlEnv():
         action_obs = action_obs.reshape(1,self.action_space.n)
         
         observation = np.concatenate((observation, action_obs), axis=1)
-
+        
+        index = np.where(self.targetState > 0 )[0]
+        threshold = np.log10(self.targetState[index]+1)
+        
+        observation = np.concatenate((observation, np.array([[threshold]])), axis = 1 )
 
         return observation
 
@@ -442,6 +446,13 @@ class controlEnv():
         #action = action.reshape(3, self.stocks_per_epi)
         #self.currentData = self.currentData *( action+1)
         observation = np.concatenate((np.log10(observation+1).reshape(1,observation.shape[0]*observation.shape[1]), action_obs), axis=1)
+        
+        index = np.where(self.targetState > 0 )[0]
+        threshold = np.log10(self.targetState[index]+1)
+        
+        observation = np.concatenate((observation, np.array([[threshold]])), axis = 1 )
+        
+        
         #self.currentData[0,action] = 0
         #if np.linalg.norm(observation, ord=1) == 0:
          #   return observation, -10, True, {'hello':0}
@@ -464,6 +475,8 @@ class controlEnv():
         v1 = currentState[0][index]
         v2 = targetState[index]
         
+        print(v1)
+        print(v2)
         #print(v1,v2)
         #print(mean_squared_error(v1,v2))
         #print(np.linalg.norm(v2, ord=1))
