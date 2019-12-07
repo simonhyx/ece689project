@@ -20,7 +20,7 @@ from sklearn.metrics import mean_squared_error
 import pandas as pd
 
 class controlEnv():
-    def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 3):
+    def __init__(self, df_normal, df_alter, allowed_genes_to_be_perturbed, target_state, numberOfSimulations = 2):
         #non permutable variables
         
         self.initialStatesNormal = df_normal
@@ -334,6 +334,9 @@ class controlEnv():
         #S[index] = 0
         if nodeIndex is not None:
             S[nodeIndex] = nodeVal
+            
+        #index = np.where(x <0)[0]
+        x[index] = 0
         #if nodeIndex is not None:
             
             #S[nodeIndex] = nodeVal
