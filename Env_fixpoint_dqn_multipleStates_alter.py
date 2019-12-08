@@ -360,7 +360,7 @@ class controlEnv():
         sol = odeint(self.diffEqv2, data, t, (np.array(self.action_list),0))
         return sol[-1,:].reshape(1,sol.shape[1])
         '''
-        sol = solve_ivp(self.diffEqv2, (0, 2*3600), data, method = 'Radau')
+        sol = solve_ivp(self.diffEqv2, (0, 1*3600), data, method = 'Radau')
         #return sol[-1,:].reshape(1,sol.shape[1])
         return sol.y[:,-1].reshape(1,sol.y.shape[0])
     
