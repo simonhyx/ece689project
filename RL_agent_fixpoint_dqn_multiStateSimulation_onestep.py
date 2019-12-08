@@ -117,9 +117,10 @@ processor = AtariProcessor()
 def actor_net(in_shape, n_classes = 2):
     img = Input(in_shape)
 
-    net = Dense(16, activation = 'relu')(img)
+    net = Dense(32, activation = 'relu')(img)
 #	net = LSTM(8,  return_sequences = True)(net)
-    net = Dense(16, activation = 'relu')(net)
+    net = Dense(32, activation = 'relu')(net)
+    net = Dense(32, activation = 'relu')(net)
     
     out = Dense(n_classes, activation = 'sigmoid')(net)
 #
