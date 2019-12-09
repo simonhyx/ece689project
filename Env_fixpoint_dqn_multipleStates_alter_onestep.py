@@ -381,7 +381,7 @@ class controlEnv():
         reward = 0
 
         for i in range(0, self.numOfSimulation):
-            currentState = self.currentState.iloc[i].values
+            currentState = copy.deepcopy(self.currentState.iloc[i].values)
             #print('wtf')
             #print(currentState.shape)
             result = self.computeNextState(currentState) 
