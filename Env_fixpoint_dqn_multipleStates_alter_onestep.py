@@ -347,6 +347,19 @@ class controlEnv():
             
         #index = np.where(x <0)[0]
         x[index] = 0
+        
+        index = np.where(np.isinf(x))
+        x[index[0]] = 0
+        
+        index = np.where(np.isnan(x))
+        x[index[0]] = 0
+        
+        index = np.where(np.isinf(S))
+        S[index[0]] = 0
+        
+        index = np.where(np.isnan(S))
+        S[index[0]] = 0        
+        
         #if nodeIndex is not None:
             
             #S[nodeIndex] = nodeVal
@@ -356,7 +369,7 @@ class controlEnv():
     
     def computeNextState(self, data):
         t = np.linspace(0, 24*3600, 100*2*3600)
-        sol = solve_ivp(self.diffEqv2, (0, 1*3600), data, method = 'Radau')
+        sol = solve_ivp(self.diffEqv2, (0, 1/60*3600), data, method = 'Radau')
         #return sol[-1,:].reshape(1,sol.shape[1])
         return sol.y[:,-1].reshape(1,sol.y.shape[0])
     
@@ -469,11 +482,19 @@ class controlEnv():
          #   return observation, -10, True, {'hello':0}
         if np.all(np.array(conditions) == True):
             print('Suceed')
+            df = pd.DataFrame({'sucessFail':[1]})
+            with open('multiStates_dqn_fixedpoint_Sucess_Fail_rate.csv', 'a') as f:
+                df.to_csv(f, header=False, index=False)
+       
             return observation, 100, True, {'hello':0}
         if np.any(np.array(conditions[1:]) == False):
+            df = pd.DataFrame({'sucessFail':[0]})
+            with open('multiStates_dqn_fixedpoint_Sucess_Fail_rate.csv', 'a') as f:
+                df.to_csv(f, header=False, index=False)
+                
             print('Fail')
             print(conditions)
-            return observation, -10, True, {'hello':0}
+            return observation, -100, True, {'hello':0}
 
         #observation = observation
 
