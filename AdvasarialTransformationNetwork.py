@@ -5,8 +5,8 @@ Created on Tue Nov  5 12:59:21 2019
 @author: simon
 """
 
-from model.skyNet5_nodeMerge import T800Node, SkyNet
-from model.dataGeneratorEdge_redo_v2 import dataGenerator
+#from model.skyNet5_nodeMerge import T800Node, SkyNet
+#from model.dataGeneratorEdge_redo_v2 import dataGenerator
 
 from scipy.integrate import solve_ivp
 import numpy as np
